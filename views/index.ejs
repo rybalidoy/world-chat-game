@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> World Chat Game </title>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(() => {
+            var socket = io();
+            var name = prompt('The page at http://localhost says:\n Enter your name:');
+            
+            if (name != '') {
+                socket.on('new_user',(logs) => {
+                    console.log('New user has joined.');
+                    for(let i = 0; i < logs.length; i++) {
+                        $('.guessbox').append(logs[i]);
+                    }
+                });
+                socket.on('start_event_game',word => {
+                    $('#word').text(word.guess);
+                });
+            }
+            $('#enter').click(() => {
+                let word_guess = $('#guess').val();
+                let log = '<p>' + name + ':\t' + word_guess + '</p>';
+                $('#guess').val('');
+                socket.emit('player_guessed',{guess:word_guess, name: name, log: log});
+            });
+
+            socket.on('log_answer',(log) => {
+                $('.guessbox').append(log);
+            });
+            socket.on('player_won',(data) => {
+                $('.guessbox').append(data);
+            });
+
+            
+        });
+    </script>
+</head>
+<body>
+    <div id="contents">
+        <div> 
+            <h2> Guess the Word: </h2>
+            <h1 id="word"> </h1>
+        </div>
+        <div class="guessbox">
+    
+        </div>
+        <input type="text" id="guess">
+        <button id="enter"> Submit </button>
+    </div>
+</body>
+</html>

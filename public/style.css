@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+body  {
+    margin: auto;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+#contents {
+    width: 25%;
+    margin: 40px auto;
+    padding: 10px;
+}
+h1, h2 {
+    text-align: center;
+}
+.winner {
+    color: green;
+}
+.guessbox {
+    border: 1px solid black;
+    padding: 10px;
+    height: 300px;
+    overflow-y: scroll;
+}
+input, button {
+    margin-top: 15px;
+    height: 40px;
+}
+input {
+    width: 80%;
+}
+button {
+    width: 19%;
+}

@@ -1,0 +1,16 @@
+1. Create a default routing app.get('/') to index.ejs
+2. On the client side prompt the user to enter their name and 
+    save it to a variable.
+3. On the server side add io.on connection to and emit a new user event
+    which will set the name of the user in the client side.
+4. At the same time in the first connection of a user, the server will start
+    an emit event that will start the guessing game.
+    -- The emit should contain the word to be guessed that calls a function
+        to randomize a word.
+5. At this point, the user should see the word to be guessed and the number of
+    players.
+6. In the client side we will have an event player_guessed to be emitted every-
+    time a user entered their word in the textbox.
+    -- In the server side, the socket.on('player_guessed) will check if the 
+    entered word is correct.
+    --- if correct : returns the user won : else do nothing
